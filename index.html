@@ -87,14 +87,17 @@
       width: min(92vw, 820px);
     }
     .hero-logo {
-      width: 128px; height: 128px; border-radius: 24px; border: 1px solid rgba(0,0,0,0.06);
+      width: 80px; height: 80px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.06);
       display: grid; place-items: center;
       background: linear-gradient(180deg, #ffffff, #f3f4f6);
       box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 1px 0 rgba(255,255,255,0.9) inset;
+      transition: transform 260ms ease, box-shadow 280ms ease, filter 240ms ease;
     }
-    .hero-logo img { width: 96px; height: 96px; opacity: 0.98; object-fit: contain; }
+    .hero-logo img { width: 95%; height: 95%; max-width: 100%; max-height: 100%; opacity: 0.98; object-fit: contain; object-position: center; transition: filter 240ms ease; }
+    .hero-logo:hover { transform: translateY(-2px); filter: saturate(1.05); box-shadow: 0 14px 40px rgba(0,0,0,0.32), 0 1px 0 rgba(255,255,255,0.95) inset, 0 0 24px rgba(96,165,250,0.25); }
+    .hero-logo:hover img { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.28)); }
 
-    .tagline { color: var(--text-dim); font-weight: 500; letter-spacing: 0.3px; }
+    .tagline { color: var(--text-dim); font-weight: 500; letter-spacing: 0.3px; transition: color 240ms ease, text-shadow 240ms ease; }
     h1.title {
       margin: 4px 0 2px;
       font-family: "Poppins", "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -106,8 +109,12 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      transition: text-shadow 260ms ease;
     }
-    p.subtitle { margin: 0; color: var(--text-dim); font-size: clamp(14px, 2.2vw, 16px); }
+    p.subtitle { margin: 0; color: var(--text-dim); font-size: clamp(14px, 2.2vw, 16px); transition: color 240ms ease, text-shadow 240ms ease; }
+    .tagline:hover { color: #e5e7eb; text-shadow: 0 2px 10px rgba(229,231,235,0.28); }
+    .title:hover { text-shadow: 0 6px 24px rgba(255,255,255,0.16), 0 0 28px rgba(96,165,250,0.25); }
+    .subtitle:hover { color: #e5e7eb; text-shadow: 0 2px 10px rgba(148,163,184,0.35); }
     p.coming { margin: 6px 0 12px; font-size: clamp(18px, 2.8vw, 20px); color: #cbd5e1; }
 
     .cta {
@@ -135,7 +142,7 @@
     @keyframes pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.8; } }
 
     /* Below the fold */
-    section#about { padding: 80px 0 120px; }
+    section#about { padding: 56px 0 80px; }
     .about-card {
       margin: 0 auto; max-width: 780px; padding: 28px 26px;
       background: var(--card);
@@ -145,7 +152,9 @@
       line-height: 1.7;
       color: #d1d5db;
       box-shadow: 0 12px 34px rgba(0,0,0,0.35);
+      transition: box-shadow 260ms ease, text-shadow 240ms ease, color 240ms ease;
     }
+    .about-card:hover { color: #e5e7eb; text-shadow: 0 2px 12px rgba(229,231,235,0.2); box-shadow: 0 18px 46px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06) inset; }
     .about-card strong { color: #e5e7eb; }
 
     footer {
@@ -154,7 +163,9 @@
       font-size: 14px;
       text-align: center;
       padding: 24px 12px 40px;
+      transition: color 240ms ease, text-shadow 240ms ease;
     }
+    footer:hover { color: #e5e7eb; text-shadow: 0 2px 10px rgba(229,231,235,0.25); }
 
     /* Animations: staged fade-in */
     .fade { opacity: 0; transform: translateY(8px); }
@@ -168,15 +179,27 @@
       .bg-anim::before { animation: none; }
       .cta-glow::after { animation: none; }
       .in { transition: none; }
+      .hero-logo, .hero-logo img, .title, .tagline, .subtitle, .about-card, footer { transition: none !important; }
     }
 
-    /* Responsive tweaks */
-    @media (max-width: 480px) {
-      .hero-card { padding: 28px 22px; border-radius: 16px; }
-      .hero-logo { width: 80px; height: 80px; border-radius: 18px; }
-      .cta { width: 100%; justify-content: center; }
-      .brand .logo { height: 44px; }
-      .brand .logo img { height: 44px; }
+    /* Mobile-first responsive tweaks */
+    .hero-card { padding: 28px 22px; border-radius: 16px; }
+    .cta { width: 100%; justify-content: center; }
+
+    @media (min-width: 480px) {
+      .hero-card { padding: 32px 26px; border-radius: 18px; }
+      .hero-logo { width: 112px; height: 112px; border-radius: 22px; }
+      .cta { width: auto; justify-content: center; }
+    }
+
+    @media (min-width: 768px) {
+      .hero-card { padding: 36px 28px; border-radius: 20px; }
+      .hero-logo { width: 128px; height: 128px; border-radius: 24px; }
+      section#about { padding: 80px 0 120px; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-logo { width: 144px; height: 144px; border-radius: 26px; }
     }
   </style>
 </head>
@@ -190,7 +213,7 @@
         <img src="assets/MSM_ernakulam_logo.png" alt="MSM Ernakulam logo" />
       </div>
 
-      <div class="tagline fade" id="stage-tag">Education. Thought. Dedication.</div>
+      <div class="tagline fade" id="stage-tag">Intellect | Thought | Submission</div>
       <h1 class="title fade" id="stage-title">Website Coming Soon</h1>
       <p class="subtitle fade" id="stage-sub">Official Student Wing of KNM – Ernakulam District</p>
 
